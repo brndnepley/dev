@@ -46,13 +46,21 @@ if (Test-CommandExists oh-my-posh) {
     Write-Host "Installing fonts..."
     oh-my-posh font install "CascadiaCode"
 
-    #$omp = "oh-my-posh init pwsh | Invoke-Expression"
-    #if (!(Select-String -Path $PROFILE -Pattern ([regex]::Escape($omp)) -Quiet)) {
-    #    #append to profile.ps1
-    #    Add-Content -Path $PROFILE -Value "`n$omp`n"
-    #    Write-Host "Appended Oh My Posh init command to profile (.ps1) file."
-    #    . $PROFILE
-    #}
+    $poshTheme = "$PSScriptRoot/posh_themes/amro.omp.json"
+
+    $profileContent = Get-Content $PROFILE
+    $updated = $profileContent | ForEach-Object {
+        if ($_ -match "oh-my-posh init pwsh") {
+            "oh-my-posh init pwsh --config $poshTheme | Invoke-Expression"
+        }
+        else {
+            $_
+        }
+    }
+
+    $updated | Set-Content $PROFILE
+    Write-Host "Updated PowerShell profile: $PROFILE"
+    . $PROFILE
 }
 else {
     Write-Host "Oh My Posh installation failed."

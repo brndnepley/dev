@@ -21,4 +21,4 @@ function Prompt {
     }
 }
 
-oh-my-posh init pwsh --config ./posh_themes/amro.omp.json  | Invoke-Expression
+oh-my-posh init pwsh | Invoke-Expression
