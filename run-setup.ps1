@@ -20,4 +20,5 @@ function Copy-PowerShellConfig {
 Copy-PowerShellConfig $PROFILE
 
 . ./install-ohmyposh.ps1
-. ./install-wezterm.ps1
+#. ./install-wezterm.ps1
+#Test-WeztermExists

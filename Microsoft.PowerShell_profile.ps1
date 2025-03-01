@@ -1,3 +1,8 @@
+function Test-CommandExists {
+    param ([string] $Command)
+    $null -ne (Get-Command $Command -ErrorAction SilentlyContinue)
+}
+
 function Prompt {
     switch ($true) {
         $IsWindows {
@@ -21,4 +26,6 @@ function Prompt {
     }
 }
 
-oh-my-posh init pwsh | Invoke-Expression
+if (Test-CommandExists "oh-my-posh") {
+    oh-my-posh init pwsh | Invoke-Expression
+}

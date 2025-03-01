@@ -15,14 +15,7 @@ function Install-WezTermWindows {
     }
 
     Write-Host "Installing WezTerm on Windows..."
-    winget install wez.wezterm
-
-    if (Test-CommandExists wezterm) {
-        Write-Host "WezTerm installed successfully!"
-    }
-    else {
-        Write-Host "WezTerm installation failed."
-    }
+    winget install wez.wezterm --silent
 }
 
 function Install-WezTermLinux {
@@ -45,6 +38,16 @@ function Copy-WezTermConfig {
     }
 }
 
+function Test-WeztermExists {
+    if (Test-CommandExists "wezterm") {
+        Write-Host "WezTerm installed successfully!"
+    }
+    else {
+        Write-Host "Could not find wezterm command, try restarting terminal."
+    }
+}
+
+# run
 switch ($true) {
     $IsWindows {
         Install-WezTermWindows
@@ -59,10 +62,3 @@ switch ($true) {
 }
 
 Copy-WezTermConfig
-
-if (Test-CommandExists "wezterm") {
-    Write-Host "WezTerm installed successfully!"
-}
-else {
-    Write-Host "WezTerm installation failed."
-}
