@@ -6,19 +6,29 @@ function Test-CommandExists {
     $null -ne (Get-Command $Command -ErrorAction SilentlyContinue)
 }
 
+function Test-IsInstalled {
+    param ([string] $name)
+
+    Write-Host "Checking for $name installation..." 
+    $installed = winget list --name $name | Select-Object -Last 1
+
+    if ($installed.Contains("No installed package found")) {
+        Write-Host "$name not found."
+        return $false
+    }
+    else {
+        Write-Host "$name found."
+        return $true
+    }
+}
+
 function Update-PowerShellProfile {
     param ([string] $file)
     $poshTheme = "$PSScriptRoot/posh_themes/amro.omp.json"
     $profileContent = Get-Content $file
     $updated = $profileContent | ForEach-Object {
-        if ($_ -match "$appCmd init pwsh") {
-            oh-my-posh init pwsh --config $poshTheme | Invoke-Expression
-        }
-        else {
-            $_
-        }
+        $_ -replace "$appCmd init pwsh", "$appCmd init pwsh --config `"$poshTheme`""
     }
-
     $updated | Set-Content $file
     Write-Host "Updated PowerShell profile: $file"
 }
@@ -54,22 +64,6 @@ function Install-OhMyPoshLinux {
     if (!(Test-CommandExists oh-my-posh)) {
         Write-Host "Downloading installation script"
         curl -s https://ohmyposh.dev/install.sh | bash -s
-    }
-}
-
-function Test-IsInstalled {
-    param ([string] $name)
-
-    Write-Host "Checking for $name installation..." 
-    $installed = winget list --name $name | Select-Object -Last 1
-
-    if ($installed.Contains("No installed package found")) {
-        Write-Host "$name not found."
-        return $false
-    }
-    else {
-        Write-Host "$name found."
-        return $true
     }
 }
 

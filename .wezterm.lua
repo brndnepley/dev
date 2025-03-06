@@ -11,11 +11,11 @@ end
 
 config.color_scheme = "Chalk"
 
---config.font = wezterm.font_with_fallback({
---	"CaskaydiaCove Nerd Font Mono",
---	"Fira Code",
---	"JetBrains Mono",
---})
-
+config.font = wezterm.font_with_fallback({
+    "CaskaydiaCove NFM",
+	"Cascadia Mono",
+	"JetBrains Mono",
+	"Fira Code",
+})
 
 return config

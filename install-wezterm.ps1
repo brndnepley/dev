@@ -1,21 +1,60 @@
+$appName = "WezTerm"
+$appCmd = "wezterm"
+
 function Test-CommandExists {
     param ([string] $Command)
     $null -ne (Get-Command $Command -ErrorAction SilentlyContinue)
 }
 
+function Test-IsInstalled {
+    param ([string] $name)
+    Write-Host "Checking for $name installation..."
+    $installed = winget list --name $name | Select-Object -Last 1
+
+    if ($installed.Contains("No installed package found")) {
+        Write-Host "$name not found."
+        return $false
+    }
+    else {
+        Write-Host "$name found."
+        return $true
+    }
+}
+
+function Copy-WezTermConfig {
+    if (Test-Path "./.wezterm.lua") {
+        Copy-Item "./.wezterm.lua" -Destination "$HOME/.wezterm.lua" -Force
+        Write-Host "$appName config (.wezterm.lua) copied to $HOME"
+    }
+    else {
+        Write-Host "No $appName config file (.wezterm.lua) file found in repo."
+    }
+}
+
 function Install-WezTermMac {
-    Write-Host "Installing WezTerm on macOS..."
+    Write-Host "Installing $appName on macOS..."
 } 
 
 function Install-WezTermWindows { 
 
-    if (-not (Test-CommandExists winget)) {
-        Write-Host "winget is not installed. Please install from the MicroSoft Store"
-        exit 1
+    if (Test-IsInstalled $appName) {
+        Write-Host "$appName is installed. Upgrading..."
+        winget upgrade wez.wezterm
+    }
+    else {
+        Write-Host "Installing $appName on Windows..."
+        winget install wez.wezterm
     }
 
-    Write-Host "Installing WezTerm on Windows..."
-    winget install wez.wezterm --silent
+    if (Test-IsInstalled $appName) {
+        Write-Host "$appName installed. Adding $appCmd to PATH."
+        $pf = [Environment]::GetFolderPath([Environment+SpecialFolder]::ProgramFiles)
+        $env:PATH += ";$pf\WezTerm\"
+    }
+    else {
+        Write-Host "$appName not installed."
+        exit 1;
+    }
 }
 
 function Install-WezTermLinux {
@@ -26,25 +65,6 @@ function Install-WezTermLinux {
 
     sudo apt update
     sudo apt install -y wezterm-nightly
-}
-
-function Copy-WezTermConfig {
-    if (Test-Path "./.wezterm.lua") {
-        Copy-Item "./.wezterm.lua" -Destination "$HOME/.wezterm.lua" -Force
-        Write-Host "WezTerm config (.wezterm.lua) copied to $HOME"
-    }
-    else {
-        Write-Host "No WezTerm config file (.wezterm.lua) file found in repo."
-    }
-}
-
-function Test-WeztermExists {
-    if (Test-CommandExists "wezterm") {
-        Write-Host "WezTerm installed successfully!"
-    }
-    else {
-        Write-Host "Could not find wezterm command, try restarting terminal."
-    }
 }
 
 # run
@@ -62,3 +82,10 @@ switch ($true) {
 }
 
 Copy-WezTermConfig
+
+if (Test-CommandExists $appCmd) {
+    Write-Host "$appCmd command found."
+}
+else {
+    Write-Host "$appCmd command not found."
+}
