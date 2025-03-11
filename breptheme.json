@@ -1,0 +1,87 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "final_space": false,
+  "version": 3,
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "path",
+          "style": "plain",
+          "foreground": "#33D17A",
+          "template": "{{.UserName}}@{{.HostName}}",
+          "properties": {
+            "style": "folder"
+          }
+        },
+        {
+          "type": "path",
+          "style": "plain",
+          "foreground": "#ffffff",
+          "template": ":",
+          "properties": {
+            "style": "folder"
+          }
+        },
+        {
+          "type": "path",
+          "style": "plain",
+          "foreground": "#2A7BDE",
+          "template": "{{ .PWD }}",
+          "properties": {
+            "style": "folder"
+          }
+        },
+        {
+          "type": "path",
+          "style": "plain",
+          "foreground": "#ffffff",
+          "template": ":",
+          "properties": {
+            "style": "folder"
+          }
+        },
+        {
+            "type": "git",
+            "style": "plain",
+            "foreground": "#193549",
+            "foreground_templates": [
+                "{{ if or (.Working.Changed) (.Staging.Changed) }}#FFEB3B{{ end }}",
+                "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#FFCC80{{ end }}",
+                "{{ if gt .Ahead 0 }}#B388FF{{ end }}",
+                "{{ if gt .Behind 0 }}#B388FB{{ end }}"
+            ],
+            "templates": [
+                        "(",
+                        "{{ .UpstreamIcon }} ",
+                        "{{ .HEAD }}",
+                        ")"
+                    ],
+            "properties": {
+                "fetch_status": true,
+                "fetch_upstream_icon": true,
+                "untracked_modes": {
+                    "/Users/user/Projects/oh-my-posh/": "no"
+                },
+                "source": "cli",
+                "mapped_branches": {
+                    "feat/*": "🚀 ",
+                    "bug/*": "🐛 "
+                }
+            }
+        },
+        {
+          "type": "path",
+          "style": "plain",
+          "foreground": "#ffffff",
+          "template": "$",
+          "properties": {
+            "style": "folder"
+          }
+        }
+      ]
+    }
+  ]
+}

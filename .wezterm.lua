@@ -9,13 +9,45 @@ elseif wezterm.target_triple == "x86_64-unknown-linux-gnu" then
 	config.default_prog = { "pwsh" }
 end
 
-config.color_scheme = "Chalk"
-
 config.font = wezterm.font_with_fallback({
-    "CaskaydiaCove NFM",
+	"CaskaydiaCove NFM",
 	"Cascadia Mono",
 	"JetBrains Mono",
 	"Fira Code",
 })
+
+config.font_size = 14.0
+config.window_background_opacity = 0.55
+
+config.color_schemes = {
+	["gnome"] = {
+		foreground = "#D0CFCC",
+		background = "#171421",
+		cursor_fg = "#49B9C7",
+		cursor_bg = "#F6F6F6",
+		ansi = {
+			"#171421",
+			"#C01C28",
+			"#26A269",
+			"#A2734C",
+			"#12488B",
+			"#A347BA",
+			"#2AA1B3",
+			"#D0CFCC",
+		},
+		brights = {
+			"#8978BD",
+			"#F66151",
+			"#33D17A",
+			"#E9AD0C",
+			"#2A7BDE",
+			"#C061CB",
+			"#33C7DE",
+			"#FFFFFF",
+		},
+	},
+}
+
+config.color_scheme = "gnome"
 
 return config

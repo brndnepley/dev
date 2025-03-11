@@ -1,5 +1,6 @@
 $appName = "Oh My Posh"
 $appCmd = "oh-my-posh"
+$poshTheme = "$PSScriptRoot/breptheme.json"
 
 function Test-CommandExists {
     param ([string] $Command)
@@ -24,7 +25,6 @@ function Test-IsInstalled {
 
 function Update-PowerShellProfile {
     param ([string] $file)
-    $poshTheme = "$PSScriptRoot/posh_themes/amro.omp.json"
     $profileContent = Get-Content $file
     $updated = $profileContent | ForEach-Object {
         $_ -replace "$appCmd init pwsh", "$appCmd init pwsh --config `"$poshTheme`""

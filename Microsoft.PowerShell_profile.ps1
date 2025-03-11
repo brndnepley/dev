@@ -26,6 +26,13 @@ function Prompt {
     }
 }
 
+if ($HOST.Name -eq "ConsoleHost") {
+    function ls_col { & "/usr/bin/ls" --color=always $args }
+    Set-Alias -Name ls -Value ls_col -Option AllScope
+}
+
 if (Test-CommandExists "oh-my-posh") {
     oh-my-posh init pwsh | Invoke-Expression
 }
+
+$PSStyle.FileInfo.Directory = "`e[34;1m"

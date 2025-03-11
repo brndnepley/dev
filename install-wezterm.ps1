@@ -6,6 +6,7 @@ function Test-CommandExists {
     $null -ne (Get-Command $Command -ErrorAction SilentlyContinue)
 }
 
+# for testing winget 
 function Test-IsInstalled {
     param ([string] $name)
     Write-Host "Checking for $name installation..."
