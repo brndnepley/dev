@@ -4,7 +4,7 @@
   "version": 3,
   "blocks": [
     {
-      "type": "prompt",
+              "type": "prompt",
       "alignment": "left",
       "segments": [
         {

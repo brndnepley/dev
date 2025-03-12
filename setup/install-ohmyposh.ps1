@@ -1,6 +1,8 @@
 $appName = "Oh My Posh"
 $appCmd = "oh-my-posh"
 $poshTheme = "$PSScriptRoot/breptheme.json"
+$font = "CascadiaCode"
+$fontPath = "$HOME"
 
 function Test-CommandExists {
     param ([string] $Command)
@@ -67,6 +69,16 @@ function Install-OhMyPoshLinux {
     }
 }
 
+function Test-FontExists {
+    param ([string] $FontFolder)
+    if (Test-Path -Path $FontFolder) {
+        $true
+    }
+    else {
+        $false
+    }
+}
+
 # run
 switch ($true) {
     $IsWindows {
@@ -74,6 +86,7 @@ switch ($true) {
     }
     $IsLinux {
         Install-OhMyPoshLinux
+        $fontPath = "$HOME/.local/share/fonts/caskaydiacove-nfm/"
     }
     Default {
         Write-Host "Unsupported OS: $([System.Environment]::OSVersion.Platform)"
@@ -85,10 +98,15 @@ Update-PowerShellProfile $PROFILE
 
 if (Test-CommandExists $appCmd) {
     Write-Host "$appCmd command found."
-    Write-Host "Installing fonts..."
-    oh-my-posh font install "CascadiaCode"
+
+    if (Test-FontExists $fontPath) {
+        Write-Host "$font font already installed."
+    }
+    else {
+        Write-Host "Installing fonts..."
+        oh-my-posh font install $font
+    }
 }
 else {
     Write-Host "$appCmd command not found."
 }
-
