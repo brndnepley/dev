@@ -28,4 +28,4 @@ Copy-PowerShellConfig $PROFILE
 . ./install-ohmyposh.ps1
 . ./install-wezterm.ps1
 . ./install-nodejs.ps1
-#. ./install-neovim.ps1
+. ./install-neovim.ps1
