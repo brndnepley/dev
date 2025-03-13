@@ -1,29 +1,9 @@
+. ./setup-utils.ps1
+
 $appName = "Oh My Posh"
 $appCmd = "oh-my-posh"
 $poshTheme = "$PSScriptRoot/breptheme.json"
 $font = "CascadiaCode"
-$fontPath = "$HOME"
-
-function Test-CommandExists {
-    param ([string] $Command)
-    $null -ne (Get-Command $Command -ErrorAction SilentlyContinue)
-}
-
-function Test-IsInstalled {
-    param ([string] $name)
-
-    Write-Host "Checking for $name installation..." 
-    $installed = winget list --name $name | Select-Object -Last 1
-
-    if ($installed.Contains("No installed package found")) {
-        Write-Host "$name not found."
-        return $false
-    }
-    else {
-        Write-Host "$name found."
-        return $true
-    }
-}
 
 function Update-PowerShellProfile {
     param ([string] $file)
@@ -53,7 +33,7 @@ function Install-OhMyPoshWindows {
     if (Test-IsInstalled $appName) {
         Write-Host "$appName installed. Adding $appCmd to PATH."
         $lad = [Environment]::GetFolderPath([Environment+SpecialFolder]::LocalApplicationData)
-        $env:PATH += ";$lad\Programs\oh-my-posh\bin\"
+        $Env:PATH += ";$lad\Programs\oh-my-posh\bin\"
     }
     else {
         Write-Host "$appName not installed."
@@ -69,20 +49,12 @@ function Install-OhMyPoshLinux {
     }
 }
 
-function Test-FontExists {
-    param ([string] $FontFolder)
-    if (Test-Path -Path $FontFolder) {
-        $true
-    }
-    else {
-        $false
-    }
-}
-
 # run
 switch ($true) {
     $IsWindows {
         Install-OhMyPoshWindows
+        #$lad = [Environment]::GetFolderPath([Environment+SpecialFolder]::LocalApplicationData)
+        #$fontPath = "$HOME/.local/share/fonts/caskaydiacove-nfm/"
     }
     $IsLinux {
         Install-OhMyPoshLinux

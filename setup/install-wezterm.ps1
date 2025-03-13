@@ -1,26 +1,7 @@
+. ./setup-utils.ps1
+
 $appName = "WezTerm"
 $appCmd = "wezterm"
-
-function Test-CommandExists {
-    param ([string] $Command)
-    $null -ne (Get-Command $Command -ErrorAction SilentlyContinue)
-}
-
-# for testing winget 
-function Test-IsInstalled {
-    param ([string] $name)
-    Write-Host "Checking for $name installation..."
-    $installed = winget list --name $name | Select-Object -Last 1
-
-    if ($installed.Contains("No installed package found")) {
-        Write-Host "$name not found."
-        return $false
-    }
-    else {
-        Write-Host "$name found."
-        return $true
-    }
-}
 
 function Copy-WezTermConfig {
     if (Test-Path "./.wezterm.lua") {
@@ -50,7 +31,7 @@ function Install-WezTermWindows {
     if (Test-IsInstalled $appName) {
         Write-Host "$appName installed. Adding $appCmd to PATH."
         $pf = [Environment]::GetFolderPath([Environment+SpecialFolder]::ProgramFiles)
-        $env:PATH += ";$pf\WezTerm\"
+        $Env:PATH += ";$pf\WezTerm\"
     }
     else {
         Write-Host "$appName not installed."

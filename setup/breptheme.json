@@ -4,7 +4,7 @@
   "version": 3,
   "blocks": [
     {
-              "type": "prompt",
+      "type": "prompt",
       "alignment": "left",
       "segments": [
         {
@@ -44,33 +44,28 @@
           }
         },
         {
-            "type": "git",
-            "style": "plain",
-            "foreground": "#33D17A",
-            "foreground_templates": [
-                "{{ if or (.Working.Changed) (.Staging.Changed) }}#FFEB3B{{ end }}",
-                "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#FFCC80{{ end }}",
-                "{{ if gt .Ahead 0 }}#B388FF{{ end }}",
-                "{{ if gt .Behind 0 }}#B388FB{{ end }}"
-            ],
-            "templates": [
-                        "(",
-                        "{{ .UpstreamIcon }} ",
-                        "{{ .HEAD }}",
-                        ")"
-                    ],
-            "properties": {
-                "fetch_status": true,
-                "fetch_upstream_icon": true,
-                "untracked_modes": {
-                    "/Users/user/Projects/oh-my-posh/": "no"
-                },
-                "source": "cli",
-                "mapped_branches": {
-                    "feat/*": "🚀 ",
-                    "bug/*": "🐛 "
-                }
+          "type": "git",
+          "style": "plain",
+          "foreground": "#33D17A",
+          "foreground_templates": [
+            "{{ if or (.Working.Changed) (.Staging.Changed) }}#FFEB3B{{ end }}",
+            "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#FFCC80{{ end }}",
+            "{{ if gt .Ahead 0 }}#B388FF{{ end }}",
+            "{{ if gt .Behind 0 }}#B388FB{{ end }}"
+          ],
+          "templates": ["(", "{{ .UpstreamIcon }} ", "{{ .HEAD }}", ")"],
+          "properties": {
+            "fetch_status": true,
+            "fetch_upstream_icon": true,
+            "untracked_modes": {
+              "/Users/user/Projects/oh-my-posh/": "no"
+            },
+            "source": "cli",
+            "mapped_branches": {
+              "feat/*": "🚀 ",
+              "bug/*": "🐛 "
             }
+          }
         },
         {
           "type": "path",

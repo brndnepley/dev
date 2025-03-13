@@ -11,13 +11,21 @@ function Copy-PowerShellConfig {
     if (Test-Path $srcFile) {
         Copy-Item $srcFile -Destination $ToPath -Force | Out-Null # Force creates necessary folders when they don't exist
         Write-Host "$srcFile copied to $ToPath"
+
+        # prepend utils script
+        $content = Get-Content $ToPath -Raw
+        $prepend = ". `"$PSScriptRoot/setup-utils.ps1`"`n`n"
+        $content = $prepend + $content
+        Set-Content $ToPath $content
     }
     else {
-        Write-Host "No PowerShell profile config ($srcFile) file found in repo."
+      Write-Host "No PowerShell profile config ($srcFile) file found in repo."
     }
 }
 
+# run
 Copy-PowerShellConfig $PROFILE
-
 . ./install-ohmyposh.ps1
 . ./install-wezterm.ps1
+. ./install-nodejs.ps1
+#. ./install-neovim.ps1
