@@ -1,16 +1,6 @@
 -- [[ Filetype Autocommands ]]
 -- See `:help lua-guide-autocommands`
 
--- detect go html templates
---[[ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-	desc = "Detects go template files",
-	group = vim.api.nvim_create_augroup("filetypedetect", { clear = false }),
-	pattern = { "*.html.tmpl" },
-	callback = function()
-		vim.cmd("setfiletype tmpl")
-	end,
-}) ]]
-
 vim.filetype.add({
 	extension = {
 		tmpl = "tmpl",

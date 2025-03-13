@@ -14,7 +14,7 @@ return {
 	},
 	config = function()
 		vim.api.nvim_create_autocmd("LspAttach", {
-			group = vim.api.nvim_create_augroup("br3p-lsp-attach", { clear = true }),
+			group = vim.api.nvim_create_augroup("brep-lsp-attach", { clear = true }),
 			callback = function(event)
 				-- Small helper to define mappings for LSP related items
 				local map = function(keys, func, desc)
@@ -69,15 +69,15 @@ return {
 				},
 			},
 			djlint = {},
-			gopls = {
-				filetypes = {
-					"go",
-					"gomod",
-					"gowork",
-					"gotmpl",
-					"tmpl",
-				},
-			},
+			--gopls = {
+			--	filetypes = {
+			--		"go",
+			--		"gomod",
+			--		"gowork",
+			--		"gotmpl",
+			--		"tmpl",
+			--	},
+			--},
 			lua_ls = {
 				-- cmd = {...},
 				-- filetypes = {...},
@@ -109,9 +109,6 @@ return {
 			handlers = {
 				function(server_name)
 					local server = servers[server_name] or {}
-					-- Handles overriding only values explicitly passed by
-					-- the server config above. Useful for disabling certain
-					-- features of an LSP
 					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
 					require("lspconfig")[server_name].setup(server)
 				end,
