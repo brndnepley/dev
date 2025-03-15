@@ -27,8 +27,21 @@ function Test-Fnm {
     fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression
 }
 
+function Test-RiderForLinux {
+
+    $riderLoc = "$HOME/rider/JetBrains` Rider-2024.3.6/bin"
+
+    if (Test-Path -Path $riderLoc) {
+        $Env:PATH += ":$riderLoc"
+    }
+}
+
 Set-lsColorAlias
 Test-OhMyPosh
 Test-Fnm
+
+if ($IsLinux) {
+    Test-RiderForLinux
+}
 
 $PSStyle.FileInfo.Directory = "`e[34;1m"
