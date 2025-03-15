@@ -23,7 +23,6 @@ vim.opt.breakindent = true
 -- used when swap-files are active
 vim.opt.updatetime = 250
 
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 vim.opt.hidden = false
 
