@@ -15,7 +15,6 @@ function Test-Fnm {
     if (!(Test-CommandExists "fnm")) {
         switch ($true) {
             $IsWindows {
-                $Env:PATH += ";$HOME/.local/share/fnm"
             }
             $IsLinux {
                 $Env:PATH += ":$HOME/.local/share/fnm"

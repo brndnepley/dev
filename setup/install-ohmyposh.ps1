@@ -53,8 +53,7 @@ function Install-OhMyPoshLinux {
 switch ($true) {
     $IsWindows {
         Install-OhMyPoshWindows
-        #$lad = [Environment]::GetFolderPath([Environment+SpecialFolder]::LocalApplicationData)
-        #$fontPath = "$HOME/.local/share/fonts/caskaydiacove-nfm/"
+        $fontPath = "C:\Windows\Fonts\CascadiaCode.ttf"
     }
     $IsLinux {
         Install-OhMyPoshLinux
