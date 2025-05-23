@@ -54,12 +54,12 @@ return {
 				end
 			end,
 		})
-		-- LSP servers and clients are able to communicate to each other what features they support.
-		--  By default, Neovim doesn't support everything that is in the LSP specification.
-		--  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
-		--  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
+
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+
+		local path = require("mason-core.path")
+		local mason_install_root_dir = path.concat({ vim.fn.stdpath("data"), "mason" })
 
 		local servers = {
 			pyright = {
@@ -69,31 +69,30 @@ return {
 				},
 			},
 			djlint = {},
-			--gopls = {
-			--	filetypes = {
-			--		"go",
-			--		"gomod",
-			--		"gowork",
-			--		"gotmpl",
-			--		"tmpl",
-			--	},
-			--},
 			lua_ls = {
-				-- cmd = {...},
-				-- filetypes = {...},
-				-- capabilities = {},
 				settings = {
 					Lua = {
 						completion = {
 							callSnippet = "Replace",
 						},
-						-- Toggle to ignore Lua_LS's noisy `missing-fields` warning
 						-- diagnostices = { disable = { "missing-fields" } },
 					},
 				},
 			},
 			html = { filetypes = { "html", "tmpl", "htmldjango" } },
 			emmet_language_server = { filetypes = { "html", "tmpl", "htmldjango" } },
+			omnisharp = {
+				filetypes = { "cs" },
+				cmd = {
+					"dotnet",
+					path.concat({
+						mason_install_root_dir,
+						"packages",
+						"omnisharp",
+						"OmniSharp.dll",
+					}),
+				},
+			},
 		}
 		require("mason").setup()
 		-- Add other tools here for Mason

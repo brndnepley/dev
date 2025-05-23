@@ -6,7 +6,6 @@ function Copy-NeovimConfig {
         $IsWindows {
             $configDest = [Environment]::GetFolderPath([Environment+SpecialFolder]::LocalApplicationData)
             $configDest += "\nvim\"
-
             # TODO install neovim and a c compiler (zig)
         }
         $IsLinux {
