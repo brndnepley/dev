@@ -15,10 +15,9 @@ function Copy-WezTermConfig {
 
 function Install-WezTermMac {
     Write-Host "Installing $appName on macOS..."
-} 
+}
 
-function Install-WezTermWindows { 
-
+function Install-WezTermWindows {
     if (Test-IsInstalled $appName) {
         Write-Host "$appName is installed. Upgrading..."
         winget upgrade wez.wezterm
