@@ -20,5 +20,3 @@ l1="export PATH=\"\$PATH:\$DOTNET_ROOT/tools\""
 grep -qxF "$l1" "$rc" || echo "$l1" >> "$rc"
 
 . "$rc"
-
-dotnet tool install --global PowerShell
