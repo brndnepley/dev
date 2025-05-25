@@ -18,7 +18,7 @@ function Copy-NeovimConfig {
     }
 
     if (Test-Path "../neovimrc/init.lua") {
-        Copy-Item "../neovimrc/*" -Destination $configDest -Force -Recurse
+        Copy-Item -Path "../neovimrc/*" -Destination $configDest -Recurse -Force
         Write-Host "Neovim config copied to $configDest"
     }
     else {
