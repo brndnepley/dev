@@ -42,6 +42,7 @@ function Install-WezTermLinux {
     if (Test-CommandExists $appCmd) {
         Write-Host "$appCmd command found."
         Write-Host "Updating WezTerm on Linux..."
+        sudo apt update
         sudo apt install --only-upgrade -y wezterm-nightly
     }
     else {
@@ -49,6 +50,7 @@ function Install-WezTermLinux {
         Write-Host "Installing WezTerm on Linux..."
         curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /etc/apt/keyrings/wezterm-fury.gpg
         echo 'deb [signed-by=/etc/apt/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
+        sudo apt update
         sudo apt install -y wezterm-nightly
     }
 }

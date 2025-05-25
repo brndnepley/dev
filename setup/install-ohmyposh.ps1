@@ -46,6 +46,7 @@ function Install-OhMyPoshLinux {
     if (!(Test-CommandExists oh-my-posh)) {
         Write-Host "Downloading installation script"
         curl -s https://ohmyposh.dev/install.sh | bash -s
+        $Env:PATH += ":$HOME/.local/bin"
     }
 }
 

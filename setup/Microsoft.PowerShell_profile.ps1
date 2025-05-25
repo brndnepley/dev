@@ -31,15 +31,18 @@ function Set-Env {
         $IsWindows {
         }
         $IsLinux {
+            $Env:PATH += ":$HOME/.dotnet"
+            $Env:PATH += ":$HOME/.dotnet/tools"
+            $Env:PATH += ":$HOME/.local/bin"
         }
         Default {
         }
     }
 }
 
+Set-Env
 Set-lsColorAlias
 Test-OhMyPosh
 Test-Fnm
-Set-Env
 
 $PSStyle.FileInfo.Directory = "`e[34;1m"

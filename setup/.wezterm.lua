@@ -6,7 +6,7 @@ local config = wezterm.config_builder()
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
 	config.default_prog = { "pwsh.exe" }
 elseif wezterm.target_triple == "x86_64-unknown-linux-gnu" then
-	config.default_prog = { "pwsh" }
+	config.default_prog = { "pwsh", "-NoLogo" }
 end
 
 config.font = wezterm.font_with_fallback({
@@ -17,7 +17,7 @@ config.font = wezterm.font_with_fallback({
 })
 
 config.font_size = 14.0
-config.window_background_opacity = 0.55
+config.window_background_opacity = 0.65
 
 config.color_schemes = {
 	["gnome"] = {
