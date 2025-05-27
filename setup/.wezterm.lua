@@ -2,6 +2,7 @@ local wezterm = require("wezterm")
 
 local config = wezterm.config_builder()
 
+-- prefer_egl = true -- use this for virtual box systems 
 -- aarch64-apple-darwin for Apple silicon
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
 	config.default_prog = { "pwsh.exe" }
