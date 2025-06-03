@@ -29,3 +29,4 @@ Copy-PowerShellConfig $PROFILE
 . ./install-wezterm.ps1
 . ./install-nodejs.ps1
 . ./install-neovim.ps1
+. ./install-rider.ps1

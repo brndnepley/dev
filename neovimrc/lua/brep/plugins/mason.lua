@@ -58,9 +58,6 @@ return {
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
-		local path = require("mason-core.path")
-		local mason_install_root_dir = path.concat({ vim.fn.stdpath("data"), "mason" })
-
 		local servers = {
 			pyright = {
 				settings = {
@@ -81,18 +78,6 @@ return {
 			},
 			html = { filetypes = { "html", "tmpl", "htmldjango" } },
 			emmet_language_server = { filetypes = { "html", "tmpl", "htmldjango" } },
-			omnisharp = {
-				filetypes = { "cs" },
-				cmd = {
-					"dotnet",
-					path.concat({
-						mason_install_root_dir,
-						"packages",
-						"omnisharp",
-						"OmniSharp.dll",
-					}),
-				},
-			},
 		}
 		require("mason").setup()
 		-- Add other tools here for Mason
