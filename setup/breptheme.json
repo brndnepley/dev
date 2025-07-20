@@ -68,6 +68,18 @@
           }
         },
         {
+          "type": "python",
+          "style": "plain",
+          "foreground": "#906cff",
+          "template": "( {{ if .Venv }}{{ .Venv }}{{ end }})",
+          "properties": {
+            "fetch_virtual_env": true,
+            "folder_name_fallback": false,
+            "display_mode": "environment",
+            "home_enabled": true
+          }
+        },
+        {
           "type": "path",
           "style": "plain",
           "foreground": "#ffffff",
