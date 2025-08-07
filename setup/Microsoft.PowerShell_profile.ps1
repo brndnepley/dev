@@ -34,6 +34,7 @@ function Set-Env {
             $Env:PATH += ":$HOME/.dotnet"
             $Env:PATH += ":$HOME/.dotnet/tools"
             $Env:PATH += ":$HOME/.local/bin"
+            $Env:PATH += ":$HOME/repos/lsp/lua-language-server/bin"
         }
         Default {
         }
