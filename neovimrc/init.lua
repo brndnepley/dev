@@ -28,7 +28,7 @@ vim.g.have_nerd_font = true
 
 local map = vim.keymap.set
 map('n', '<leader>so', ':update<CR> :source<CR>')
-map('n', '<leader>pv', ':Vexplore<CR>')
+map('n', '<leader>pv', ':Explore<CR>')
 map('n', '<leader>lf', vim.lsp.buf.format)
 
 vim.pack.add({
@@ -48,7 +48,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 vim.cmd("set completeopt+=noselect")
 
-vim.lsp.enable({ "lua_ls" })
+vim.lsp.enable({ "lua_ls", "csharp" })
 vim.lsp.config("lua_ls", {
 	settings = {
 		Lua = {

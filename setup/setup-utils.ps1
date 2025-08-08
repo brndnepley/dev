@@ -30,8 +30,22 @@ function Test-FontExists {
 }
 
 function Remove-DuplicatePathEntries {
-    $split = $Env:PATH -split ';'
-    $cleaned = $split | Sort-Object -Unique
-    $newPath = $cleaned -join ';'
-    $Env:PATH = $newPath
+    $seen = @{}
+    $unique = @()
+	$splitChar = ':'
+
+    foreach ($entry in $Env:PATH -split $splitChar) {
+        $normalized = [System.IO.Path]::GetFullPath($entry).ToLowerInvariant()
+        if (-not $seen.ContainsKey($normalized)) {
+            $seen[$normalized] = $true
+            $unique += $entry
+        }
+    }
+
+    $Env:PATH = ($unique -join ':')
+	Write-Host "Cleaned PATH:"
+	foreach ($path in $unique) {
+		Write-Host $path
+	}
+
 }

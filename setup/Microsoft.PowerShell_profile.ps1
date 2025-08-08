@@ -31,6 +31,7 @@ function Set-Env {
         $IsWindows {
         }
         $IsLinux {
+			$Env:DOTNET_ROOT = "$HOME/.dotnet"
             $Env:PATH += ":$HOME/.dotnet"
             $Env:PATH += ":$HOME/.dotnet/tools"
             $Env:PATH += ":$HOME/.local/bin"
