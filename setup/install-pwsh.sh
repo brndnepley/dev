@@ -4,9 +4,9 @@ command_exists() {
     command -v "$1" &>/dev/null
 }
 
-install_powershell_debian() {
+install_powershell_ubuntu() {
     # Debian/Ubuntu-based
-    echo "Installing PowerShell for Debian/Ubuntu..."
+    echo "Installing PowerShell for Ubuntu..."
     source /etc/os-release && echo "Current Ubuntu version: $PRETTY_NAME"
 
     sudo apt update || \
@@ -27,7 +27,7 @@ install_powershell_debian() {
 
 install_powershell_linux() {
     if command_exists apt; then
-        install_powershell_debian
+        install_powershell_ubuntu
     else
         echo "Unsupported Linux distribution. Please install PowerShell manually."
         exit 1
