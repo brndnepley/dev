@@ -38,6 +38,7 @@ function Set-Env {
             $Env:PATH += ":$HOME/.local/bin"
 
             $Env:PATH += ":$HOME/repos/lsp/lua-language-server/bin"
+			$Env:PATH += ":$HOME/repos/lsp/omnisharp"
         }
         Default {
         }

@@ -18,7 +18,6 @@ config.font = wezterm.font_with_fallback({
 })
 
 config.font_size = 14.0
-config.window_background_opacity = 0.65
 
 config.color_schemes = {
 	["gnome"] = {

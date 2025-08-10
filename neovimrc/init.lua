@@ -48,7 +48,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 vim.cmd("set completeopt+=noselect")
 
-vim.lsp.enable({ "lua_ls", "csharp" })
+vim.lsp.enable("lua_ls")
 vim.lsp.config("lua_ls", {
 	settings = {
 		Lua = {
@@ -56,3 +56,6 @@ vim.lsp.config("lua_ls", {
 		},
 	},
 })
+
+vim.lsp.enable("csharp-ls")
+
