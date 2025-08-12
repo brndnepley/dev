@@ -26,11 +26,31 @@ function Test-Fnm {
     fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression
 }
 
+function Invoke-CmdScript {
+# Invokes a Cmd.exe shell script and updates the environment.
+  param(
+    [String] $scriptName
+  )
+  $cmdLine = """$scriptName"" $args & set"
+  & $Env:SystemRoot\system32\cmd.exe /c $cmdLine |
+  select-string '^([^=]*)=(.*)$' | foreach-object {
+    $varName = $_.Matches[0].Groups[1].Value
+    $varValue = $_.Matches[0].Groups[2].Value
+    set-item Env:$varName $varValue
+  }
+}
+
+function Set-Vars {
+    $vcvarsallPath = "${Env:ProgramFiles}\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat"
+    Invoke-CmdScript $vcvarsallPath "x64"
+}
+
 function Set-Env {
     switch ($true) {
         $IsWindows {
             $Env:PATH += ";${Env:ProgramFiles(x86)}\GnuWin32\bin" # make
             $Env:PATH += ";${Env:ProgramFiles}\CMake\bin" # cmake
+            $Env:PATH += ";${Env:ProgramFiles}\LLVM\bin" # clang
         }
         $IsLinux {
 			$Env:DOTNET_ROOT = "$HOME/.dotnet"
@@ -47,6 +67,7 @@ function Set-Env {
     }
 }
 
+Set-Vars
 Set-Env
 Set-lsColorAlias
 Test-OhMyPosh
