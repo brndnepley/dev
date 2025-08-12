@@ -29,7 +29,8 @@ function Test-Fnm {
 function Set-Env {
     switch ($true) {
         $IsWindows {
-            $Env:PATH += ";${Env:ProgramFiles(x86)}\GnuWin32\bin"
+            $Env:PATH += ";${Env:ProgramFiles(x86)}\GnuWin32\bin" # make
+            $Env:PATH += ";${Env:ProgramFiles}\CMake\bin" # cmake
         }
         $IsLinux {
 			$Env:DOTNET_ROOT = "$HOME/.dotnet"
