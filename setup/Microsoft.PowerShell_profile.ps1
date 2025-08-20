@@ -28,16 +28,17 @@ function Test-Fnm {
 
 function Invoke-CmdScript {
 # Invokes a Cmd.exe shell script and updates the environment.
-  param(
-    [String] $scriptName
-  )
-  $cmdLine = """$scriptName"" $args & set"
-  & $Env:SystemRoot\system32\cmd.exe /c $cmdLine |
-  select-string '^([^=]*)=(.*)$' | foreach-object {
-    $varName = $_.Matches[0].Groups[1].Value
-    $varValue = $_.Matches[0].Groups[2].Value
-    set-item Env:$varName $varValue
-  }
+  param([String] $scriptName)
+
+	if ($IsWindows) {
+	  $cmdLine = """$scriptName"" $args & set"
+	  & $Env:SystemRoot\system32\cmd.exe /c $cmdLine |
+	  select-string '^([^=]*)=(.*)$' | foreach-object {
+		$varName = $_.Matches[0].Groups[1].Value
+		$varValue = $_.Matches[0].Groups[2].Value
+		set-item Env:$varName $varValue
+	  }
+	}
 }
 
 function Set-Vars {
@@ -69,8 +70,8 @@ function Set-Env {
 			$Env:VULKAN_SDK = "$vulkanLoc/x86_64"
 			$Env:LD_LIBRARY_PATH = "$Env:VULKAN_SDK/lib"
 			$Env:VK_ADD_LAYER_PATH = "$Env:VULKAN_SDK/share/vulkan/explicit_layer.d"
-			$Env:VK_LAYER_PATH = "$Env:VULKAN_SDK/$latest/share/vulkan/explicit_layer.d"
-			$Env:PATH += ":$Env:VULKAN_SDK/$latest/bin"
+			$Env:VK_LAYER_PATH = "$Env:VULKAN_SDK/share/vulkan/explicit_layer.d"
+			$Env:PATH += ":$Env:VULKAN_SDK/bin"
         }
         Default {
         }
