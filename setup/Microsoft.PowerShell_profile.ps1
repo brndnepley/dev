@@ -61,6 +61,16 @@ function Set-Env {
 
             $Env:PATH += ":$HOME/repos/lsp/lua-language-server/bin"
 			$Env:PATH += ":$HOME/repos/lsp/omnisharp"
+
+			# vulkan
+			# TODO automate 
+			$version = "1.4.321.1"
+			$vulkanLoc = "$HOME/vulkan/$version"
+			$Env:VULKAN_SDK = "$vulkanLoc/x86_64"
+			$Env:LD_LIBRARY_PATH = "$Env:VULKAN_SDK/lib"
+			$Env:VK_ADD_LAYER_PATH = "$Env:VULKAN_SDK/share/vulkan/explicit_layer.d"
+			$Env:VK_LAYER_PATH = "$Env:VULKAN_SDK/$latest/share/vulkan/explicit_layer.d"
+			$Env:PATH += ":$Env:VULKAN_SDK/$latest/bin"
         }
         Default {
         }
