@@ -18,6 +18,12 @@ config.font = wezterm.font_with_fallback({
 })
 
 config.font_size = 14.0
+config.window_padding = {
+	left = 2,
+	right = 2,
+	top = 0,
+	bottom = 0,
+}
 
 config.color_schemes = {
 	["gnome"] = {

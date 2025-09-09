@@ -63,5 +63,3 @@ function Get-VulkanSDK-Latest {
 	Pop-Location
 	return
 }
-
-Get-VulkanSDK-Latest
