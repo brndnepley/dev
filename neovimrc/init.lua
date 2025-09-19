@@ -59,3 +59,18 @@ vim.lsp.config("lua_ls", {
 
 vim.lsp.enable("csharp-ls")
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "c",
+  callback = function()
+    vim.opt_local.equalprg = "clang-format"
+    vim.opt_local.formatprg = "clang-format"
+  end,
+})
+
+vim.api.nvim_create_autocmd('BufWritePre', {
+	pattern = {"*.c", "*.h"},
+	callback = function()
+		vim.cmd("!clang-format -i %")
+		vim.cmd("edit!")
+	end,
+})

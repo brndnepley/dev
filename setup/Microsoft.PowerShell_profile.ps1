@@ -57,11 +57,13 @@ function Set-Env {
 			$Env:DOTNET_ROOT = "$HOME/.dotnet"
             $Env:PATH += ":$HOME/.dotnet"
             $Env:PATH += ":$HOME/.dotnet/tools"
-
             $Env:PATH += ":$HOME/.local/bin"
-
             $Env:PATH += ":$HOME/repos/lsp/lua-language-server/bin"
 			$Env:PATH += ":$HOME/repos/lsp/omnisharp"
+
+			# clang
+			# TODO automate
+			$Env:PATH += ":$HOME/repos/llvm-project/build/bin/"
 
 			# vulkan
 			# TODO automate 
