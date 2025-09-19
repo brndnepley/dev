@@ -70,7 +70,9 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd('BufWritePre', {
 	pattern = {"*.c", "*.h"},
 	callback = function()
-		vim.cmd("!clang-format -i %")
-		vim.cmd("edit!")
+		local file = vim.fn.expand("%:p")
+		local cursor = vim.api.nvim_win_get_cursor(0)
+		vim.cmd("silent %!clang-format")
+		vim.api.nvim_win_set_cursor(0, cursor)
 	end,
 })
