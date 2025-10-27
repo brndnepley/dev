@@ -6,7 +6,7 @@ function Test-CommandExists {
 function Test-IsInstalled {
     param ([string] $name)
 
-    Write-Host "Checking for $name installation..." 
+    Write-Host "Checking winget for $name installation..." 
     $installed = winget list --name $name | Select-Object -Last 1
 
     if ($installed.Contains("No installed package found")) {
@@ -47,5 +47,4 @@ function Remove-DuplicatePathEntries {
 	foreach ($path in $unique) {
 		Write-Host $path
 	}
-
 }

@@ -1,40 +1,39 @@
 #!/bin/bash
-
 command_exists() {
     command -v "$1" &>/dev/null
 }
 
-install_powershell_ubuntu() {
+install_on_ubuntu() {
     # Debian/Ubuntu-based
-    echo "Installing PowerShell for Ubuntu..."
-    source /etc/os-release && echo "Current Ubuntu version: $PRETTY_NAME"
+    echo "[Ubuntu] Installing PowerShell..."
 
-    sudo apt update || \
+	# Get Ubuntu version
+    source /etc/os-release && echo "Current OS version: $PRETTY_NAME"
+
+    sudo apt-get update || \
         { echo "Failed to update package list."; exit 1; }
-    sudo apt install -y wget apt-transport-https software-properties-common || \
+
+	# Install pre-reqs
+    sudo apt-get install -y wget apt-transport-https software-properties-common || \
         { echo "Failed to install dependencies"; exit 1; }
+
+	# Download the Microsoft repo keys
     wget -q https://packages.microsoft.com/config/ubuntu/$VERSION_ID/packages-microsoft-prod.deb || \
         { echo "Failed to download Microsoft repository keys."; exit 1; }
+
+	# Regiseter the Microsoft repo keys
     sudo dpkg -i packages-microsoft-prod.deb || \
         { echo "Failed to register the Microsoft repository keys."; exit 1; }
 
-    # remove installation files when done
+    # Delete repo keys when done
     rm packages-microsoft-prod.deb
 
-    sudo apt update
-    sudo apt install -y powershell 
+	# install
+    sudo apt-get update
+    sudo apt-get install -y powershell 
 }
 
-install_powershell_linux() {
-    if command_exists apt; then
-        install_powershell_ubuntu
-    else
-        echo "Unsupported Linux distribution. Please install PowerShell manually."
-        exit 1
-    fi
-}
-
-install_powershell_mac() {
+install_on_mac() {
     echo "Installing PowerShell on macOS..."
     if ! command_exists brew; then
         echo "Homebrew is not installed. Installing Homebrew..."
@@ -46,16 +45,22 @@ install_powershell_mac() {
     brew install powershell/tap/powershell
 }
 
+# run
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    install_powershell_linux
+    if command_exists apt; then
+        install_on_ubuntu
+    else
+        echo "Unsupported Linux distribution. Please install PowerShell manually."
+        exit 1
+    fi
 elif [[ "OSTYPE" == "darwin"* ]]; then
-    install_pwsh_mac_os
+    install_on_mac
 else
     echo "Unsupported OS: $OSTYPE"
     exit 1
 fi
 
-# Verify installation
+# verify installation
 if command -v pwsh &>/dev/null; then
     echo "PowerShell installation successful!"
 else

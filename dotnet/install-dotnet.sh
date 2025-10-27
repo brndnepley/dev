@@ -1,4 +1,10 @@
 #!/bin/bash
+#
+# Downloads and runs the dotnet-install.sh script from Microsoft
+#
+# More info here:
+# https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-install-script
+
 mkdir tmp
 curl -L https://dot.net/v1/dotnet-install.sh -o tmp/dotnet-install.sh
 chmod +x ./tmp/dotnet-install.sh
@@ -9,7 +15,7 @@ chmod +x ./tmp/dotnet-install.sh
 rc="$HOME/.bashrc"
 
 export DOTNET_ROOT=$HOME/.dotnet
-l1="export DOTNET_ROOT=\"\$HOME/.dotnet\""
+l1	="export DOTNET_ROOT=\"\$HOME/.dotnet\""
 grep -qxF "$l1" "$rc" || echo "$l1" >> "$rc"
 
 # the path here is set from the curl'd script

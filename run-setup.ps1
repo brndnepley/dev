@@ -24,9 +24,9 @@ function Copy-PowerShellConfig {
 }
 
 # run
-Copy-PowerShellConfig $PROFILE
-. ./install-ohmyposh.ps1
-. ./install-wezterm.ps1
-. ./install-nodejs.ps1
-. ./install-neovim.ps1
-. ./vulkan-setup.ps1
+# Copy-PowerShellConfig $PROFILE
+# . ./install-ohmyposh.ps1
+# . ./install-wezterm.ps1
+# . ./install-nodejs.ps1
+# . ./install-neovim.ps1
+# . ./vulkan-setup.ps1

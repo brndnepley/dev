@@ -1,4 +1,4 @@
-. ./setup-utils.ps1
+. ../utils/setup-utils.ps1
 
 $appName = "WezTerm"
 $appCmd = "wezterm"
