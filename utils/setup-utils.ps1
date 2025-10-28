@@ -30,15 +30,15 @@ function Test-FontExists {
 }
 
 function Copy-ConfigFile {
-    param ([string] $DestPath,
-		   [string] $ToPath)
+    param ([string] $SrcPath,
+		   [string] $DestPath)
 
-    if (Test-Path $DestPath) {
-        Copy-Item $DestPath -Destination $ToPath -Force
-        Write-Host "Config copied to $ToPath"
+    if (Test-Path $SrcPath) {
+        Copy-Item $SrcPath -Destination $DestPath -Force
+        Write-Host "Config copied to $DestPath"
     }
     else {
-        Write-Host "Source config file $DestPath not found."
+        Write-Host "Source config file $SrcPath not found."
     }
 }
 

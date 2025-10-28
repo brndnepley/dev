@@ -6,8 +6,7 @@ Copy-ConfigFile "./utils/setup-win-utils.ps1" "$profileDir/setup-win-utils.ps1"
 Copy-ConfigFile "./env-vars.ps1" "$profileDir/env-vars.ps1"
 
 # powershell
-# Invokes a Cmd.exe shell script and updates the environment.
-Copy-ConfigFile "./powershell/Microsoft.PowerShell_profile.ps1" "$PROFILE"
+Copy-ConfigFile "./powershell/Microsoft.PowerShell_profile.ps1" $PROFILE
 
 # wezterm
 . ./wezterm/install-wezterm.ps1
