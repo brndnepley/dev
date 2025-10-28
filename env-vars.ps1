@@ -7,6 +7,8 @@ switch ($true) {
 	}
 	$IsLinux {
 		$Env:PATH += ":$HOME/.local/bin"
+ 
+		# neovim lsp
 		$Env:PATH += ":$HOME/repos/lsp/lua-language-server/bin"
 		$Env:PATH += ":$HOME/repos/lsp/omnisharp"
 

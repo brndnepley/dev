@@ -30,16 +30,16 @@ function Test-FontExists {
 }
 
 function Copy-ConfigFile {
-    param ([string] $DestPath,
-		   [string] $ToPath)
+    param ([string] $SrcPath,
+		   [string] $DestPath)
 
-    if (Test-Path $DestPath) {
-        Copy-Item $DestPath -Destination $ToPath -Force
-        Write-Host "Config copied to $ToPath"
-    }
-    else {
-        Write-Host "Source config file $DestPath not found."
-    }
+	if (-Not (Test-Path -Path $DestPath)) {
+		New-Item -ItemType "file" -Path $DestPath -Force | Out-Null
+		Write-Host "Created new file: $DestPath"
+	}
+
+	Copy-Item -Path $SrcPath -Destination $DestPath -Recurse -Force
+	Write-Host "$SrcPath copied to $DestPath"
 }
 
 function Remove-DuplicatePathEntries {
