@@ -34,7 +34,7 @@ function Copy-ConfigFile {
 		   [string] $DestPath)
 
     if (Test-Path $SrcPath) {
-        Copy-Item $SrcPath -Destination $DestPath -Force
+        Copy-Item -Path $SrcPath -Destination $DestPath -Force -Recurse
         Write-Host "Config copied to $DestPath"
     }
     else {
