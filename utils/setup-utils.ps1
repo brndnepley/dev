@@ -33,8 +33,8 @@ function Copy-ConfigFile {
     param ([string] $SrcPath,
 		   [string] $DestPath)
 
-	Copy-Item -Path $SrcPath -Destination $DestPath -Force -Recurse
-	Write-Host "Config copied to $DestPath"
+	Copy-Item -Path $SrcPath -Destination $DestPath -Recurse -Force
+	Write-Host "$SrcPath copied to $DestPath"
 }
 
 function Remove-DuplicatePathEntries {
