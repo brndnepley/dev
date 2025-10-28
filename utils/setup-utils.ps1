@@ -33,13 +33,8 @@ function Copy-ConfigFile {
     param ([string] $SrcPath,
 		   [string] $DestPath)
 
-    if (Test-Path $SrcPath) {
-        Copy-Item -Path $SrcPath -Destination $DestPath -Force -Recurse
-        Write-Host "Config copied to $DestPath"
-    }
-    else {
-        Write-Host "Source config file $SrcPath not found."
-    }
+	Copy-Item -Path $SrcPath -Destination $DestPath -Force -Recurse
+	Write-Host "Config copied to $DestPath"
 }
 
 function Remove-DuplicatePathEntries {
