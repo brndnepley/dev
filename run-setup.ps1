@@ -1,32 +1,28 @@
-function Copy-PowerShellConfig {
-    param ([string] $ToPath)
+# utils
+. ./utils/setup-utils.ps1
+$profileDir = Split-Path -Path $PROFILE -Parent
+Copy-ConfigFile "./utils/setup-utils.ps1" "$profileDir/setup-utils.ps1"
+Copy-ConfigFile "./utils/setup-win-utils.ps1" "$profileDir/setup-win-utils.ps1"
+Copy-ConfigFile "./env-vars.ps1" "$profileDir/env-vars.ps1"
 
-    $srcFile = "Microsoft.PowerShell_profile.ps1"
+# powershell
+# Invokes a Cmd.exe shell script and updates the environment.
+Copy-ConfigFile "./powershell/Microsoft.PowerShell_profile.ps1" "$PROFILE"
 
-    if (!(Test-Path -Path $ToPath)) {
-        New-Item -ItemType "file" -Path $ToPath -Force | Out-Null
-        Write-Host "Created new Microsoft.PowerShell_profile.ps1 at: $ToPath"
-    }
+# wezterm
+. ./wezterm/install-wezterm.ps1
+Copy-ConfigFile "./wezterm/.wezterm.lua" "$HOME/.wezterm.lua"
 
-    if (Test-Path $srcFile) {
-        Copy-Item $srcFile -Destination $ToPath -Force | Out-Null # Force creates necessary folders when they don't exist
-        Write-Host "$srcFile copied to $ToPath"
+# ohmyposh
+. ./ohmyposh/install-ohmyposh.ps1
 
-        # prepend utils script
-        $content = Get-Content $ToPath -Raw
-        $prepend = ". `"$PSScriptRoot/setup-utils.ps1`"`n`n"
-        $content = $prepend + $content
-        Set-Content $ToPath $content
-    }
-    else {
-      Write-Host "No PowerShell profile config ($srcFile) file found in repo."
-    }
-}
+# neovim
+# TODO: update to full install on neovim 12 release
+. ./neovim/install-neovim.ps1
+Copy-NeovimConfig
 
-# run
-# Copy-PowerShellConfig $PROFILE
-# . ./install-ohmyposh.ps1
-# . ./install-wezterm.ps1
+# nodejs
 # . ./install-nodejs.ps1
-# . ./install-neovim.ps1
+
+# vulkan
 # . ./vulkan-setup.ps1

@@ -1,17 +1,5 @@
-. ../utils/setup-utils.ps1
-
 $appName = "WezTerm"
 $appCmd = "wezterm"
-
-function Copy-WezTermConfig {
-    if (Test-Path "./.wezterm.lua") {
-        Copy-Item "./.wezterm.lua" -Destination "$HOME/.wezterm.lua" -Force
-        Write-Host "$appName config (.wezterm.lua) copied to $HOME"
-    }
-    else {
-        Write-Host "No $appName config file (.wezterm.lua) file found in repo."
-    }
-}
 
 function Install-WezTermMac {
     Write-Host "Installing $appName on macOS..."
@@ -42,20 +30,24 @@ function Install-WezTermLinux {
     if (Test-CommandExists $appCmd) {
         Write-Host "$appCmd command found."
         Write-Host "Updating WezTerm on Linux..."
-        sudo apt update
-        sudo apt install --only-upgrade -y wezterm-nightly
+		Write-Host "Running apt-get update quietly..."
+        sudo apt-get update -qq
+        sudo apt-get install --only-upgrade -y wezterm-nightly
     }
     else {
         Write-Host "$appCmd command not found."
         Write-Host "Installing WezTerm on Linux..."
         curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /etc/apt/keyrings/wezterm-fury.gpg
         echo 'deb [signed-by=/etc/apt/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
-        sudo apt update
-        sudo apt install -y wezterm-nightly
+		Write-Host "Running apt-get update quietly..."
+        sudo apt-get update
+        sudo apt-get install -y wezterm-nightly
     }
 }
 
 # run
+. ./utils/setup-utils.ps1
+
 switch ($true) {
     $IsWindows {
         Install-WezTermWindows
@@ -68,8 +60,6 @@ switch ($true) {
         exit 1
     }
 }
-
-Copy-WezTermConfig
 
 if (Test-CommandExists $appCmd) {
     Write-Host "$appCmd command found."

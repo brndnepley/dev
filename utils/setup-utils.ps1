@@ -29,6 +29,19 @@ function Test-FontExists {
     }
 }
 
+function Copy-ConfigFile {
+    param ([string] $DestPath,
+		   [string] $ToPath)
+
+    if (Test-Path $DestPath) {
+        Copy-Item $DestPath -Destination $ToPath -Force
+        Write-Host "Config copied to $ToPath"
+    }
+    else {
+        Write-Host "Source config file $DestPath not found."
+    }
+}
+
 function Remove-DuplicatePathEntries {
     $seen = @{}
     $unique = @()
@@ -47,4 +60,32 @@ function Remove-DuplicatePathEntries {
 	foreach ($path in $unique) {
 		Write-Host $path
 	}
+}
+
+function Set-lsColorAlias {
+    if ($HOST.Name -eq "ConsoleHost") {
+        function ls_col { & "/usr/bin/ls" --color=always $args }
+        Set-Alias -Name ls -Value ls_col -Option AllScope
+    }
+}
+
+function Add-LineIfMissing() {
+    param (
+        [Parameter(Mandatory=$true)]
+        [string]$FilePath,
+
+        [Parameter(Mandatory=$true)]
+        [string]$ContentToAdd
+    )
+
+    if (-not (Test-Path $FilePath)) {
+        Write-Error "File not found: $FilePath"
+        return
+    }
+
+    $lines = Get-Content $FilePath
+    if ($lines -notcontains $ContentToAdd) {
+        Add-Content -Path $FilePath -Value $ContentToAdd
+        Write-Host "Added line: '$ContentToAdd'"
+    }
 }

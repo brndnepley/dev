@@ -1,19 +1,7 @@
-. ./setup-utils.ps1
-
 $appName = "Oh My Posh"
 $appCmd = "oh-my-posh"
-$poshTheme = "$PSScriptRoot/breptheme.json"
 $font = "CascadiaCode"
-
-function Update-PowerShellProfile {
-    param ([string] $file)
-    $profileContent = Get-Content $file
-    $updated = $profileContent | ForEach-Object {
-        $_ -replace "$appCmd init pwsh", "$appCmd init pwsh --config `"$poshTheme`""
-    }
-    $updated | Set-Content $file
-    Write-Host "Updated PowerShell profile: $file"
-}
+$poshTheme = "$PSScriptRoot/breptheme.json"
 
 function Install-OhMyPoshMac {
     Write-Host "Installing $appName on Windows..."
@@ -50,7 +38,21 @@ function Install-OhMyPoshLinux {
     }
 }
 
+function Update-PowerShellProfile {
+    param ([string] $file)
+    $profileContent = Get-Content $file
+
+    $updated = $profileContent | ForEach-Object {
+        $_ -replace "$appCmd init pwsh", "$appCmd init pwsh --config `"$poshTheme`""
+    }
+
+    $updated | Set-Content $file
+    Write-Host "Updated PowerShell profile for ohmyposh"
+}
+
 # run
+. ./utils/setup-utils.ps1
+
 switch ($true) {
     $IsWindows {
         Install-OhMyPoshWindows

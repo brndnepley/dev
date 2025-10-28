@@ -9,16 +9,17 @@ function Install-DotnetLinux() {
 
 	# Add microsoft Ubuntu .NET backports repository
 	sudo add-apt-repository ppa:dotnet/backports
-	sudo apt update
+	Write-Host "Running apt-get update quitely..."
+	sudo apt-get update -qq
 
 	# To remove repo
 	# sudo add-apt-repository --remove ppa:dotnet/backports
 
 	Write-Host "Installing $sdk..."
-	sudo apt install $sdk
+	sudo apt-get install $sdk
 
 	Write-Host "Installing $runtime..."
-    sudo apt install $runtime
+    sudo apt-get install $runtime
 }
 
 # run
@@ -42,4 +43,3 @@ if (Test-CommandExists $appCmd) {
 else {
     Write-Host "$appCmd command not found."
 }
-

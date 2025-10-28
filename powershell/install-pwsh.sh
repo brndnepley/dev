@@ -5,12 +5,13 @@ command_exists() {
 
 install_on_ubuntu() {
     # Debian/Ubuntu-based
-    echo "[Ubuntu] Installing PowerShell..."
+    echo "Installing PowerShell..."
 
 	# Get Ubuntu version
     source /etc/os-release && echo "Current OS version: $PRETTY_NAME"
 
-    sudo apt-get update || \
+	echo "Running apt-get update quietly..."
+    sudo apt-get update -qq || \
         { echo "Failed to update package list."; exit 1; }
 
 	# Install pre-reqs
@@ -29,7 +30,7 @@ install_on_ubuntu() {
     rm packages-microsoft-prod.deb
 
 	# install
-    sudo apt-get update
+    sudo apt-get update -qq
     sudo apt-get install -y powershell 
 }
 
@@ -60,7 +61,7 @@ else
     exit 1
 fi
 
-# verify installation
+# verify
 if command -v pwsh &>/dev/null; then
     echo "PowerShell installation successful!"
 else
