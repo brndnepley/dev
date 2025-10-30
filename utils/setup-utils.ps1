@@ -33,6 +33,11 @@ function Copy-ConfigFile {
     param ([string] $SrcPath,
 		   [string] $DestPath)
 
+	if (!Test-Path -Path $DestPath) {
+		New-Item -ItemType "file" -Path $DestPath -Force | Out-Null
+		Write-Host "Created new powershell profile: $DestPath"
+	}
+
 	Copy-Item -Path $SrcPath -Destination $DestPath -Recurse -Force
 	Write-Host "$SrcPath copied to $DestPath"
 }
