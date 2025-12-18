@@ -1,5 +1,5 @@
-$sdk = "dotnet-sdk-9.0"
-$runtime = "aspnetcore-runtime-9.0"
+$sdk = "dotnet-sdk-10.0"
+$runtime = "aspnetcore-runtime-10.0"
 $appCmd = "dotnet"
 
 function Install-DotnetLinux() {
