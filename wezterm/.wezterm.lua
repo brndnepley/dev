@@ -18,7 +18,7 @@ config.font = wezterm.font_with_fallback({
 	"Fira Code",
 })
 
-config.font_size = 18.0
+config.font_size = 14.0
 config.window_padding = {
 	left = 2,
 	right = 2,
