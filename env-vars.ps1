@@ -16,6 +16,10 @@ switch ($true) {
 		# TODO automate
 		$Env:PATH += ":$HOME/repos/llvm-project/build/bin/"
 
+		# clangd
+		$clangVersion = "21.1.8"
+		$Env:PATH += ":$HOME/clangd_$clangVersion/bin/"
+
 		# vulkan
 		# TODO automate 
 		$version = "1.4.321.1"

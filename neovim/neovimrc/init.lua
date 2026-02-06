@@ -36,16 +36,33 @@ vim.pack.add({
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 })
-vim.cmd("colorscheme gruvbox-material")
-
-vim.api.nvim_create_autocmd('LspAttach', {
-	callback = function(ev)
-		local client = vim.lsp.get_client_by_id(ev.data.client_id)
-		if client:supports_method('textDocument/completion') then
-			vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-		end
-	end,
+vim.pack.add( {
+	{ src = "https://github.com/nvim-lua/plenary.nvim" },
+	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
+	{ src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim" },
 })
+
+-- telscope
+local ts = require("telescope")
+ts.setup({
+	defaults = {
+		layout_strategy = "flex",
+		sorting_strategy = "ascending",
+	},
+})
+local builtin = require("telescope.builtin")
+map('n', '<leader>ff', builtin.find_files)
+map('n', '<leader>fg', builtin.live_grep)
+map('n', '<leader>fb', builtin.buffers)
+map('n', '<leader>fh', builtin.help_tags)
+
+-- fzf needs to be built:
+-- cd ~/.local/share/nvim/site/pack/core/opt/telescope-fzf-native.nvim && make
+ts.load_extension("fzf")
+
+-- end telescope
+
+vim.cmd("colorscheme gruvbox-material")
 vim.cmd("set completeopt+=noselect")
 
 vim.lsp.enable("lua_ls")
@@ -56,8 +73,6 @@ vim.lsp.config("lua_ls", {
 		},
 	},
 })
-
-vim.lsp.enable("csharp-ls")
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "c",
@@ -73,6 +88,12 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 		local file = vim.fn.expand("%:p")
 		local cursor = vim.api.nvim_win_get_cursor(0)
 		vim.cmd("silent %!clang-format")
-		vim.api.nvim_win_set_cursor(0, cursor)
+
+		-- clamp cursor row/col to valid positions
+		local line_count = vim.api.nvim_buf_line_count(0)
+		local row = math.min(cursor[1], line_count)
+		local line = vim.api.nvim_buf_get_lines(0, row - 1, row, false)[1]
+		local col = math.min(cursor[2], #line)
+		vim.api.nvim_win_set_cursor(0, {row, col})
 	end,
 })
