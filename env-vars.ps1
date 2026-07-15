@@ -12,13 +12,13 @@ switch ($true) {
 		$Env:PATH += ":$HOME/repos/lsp/lua-language-server/bin"
 		$Env:PATH += ":$HOME/repos/lsp/omnisharp"
 
-		# clang
-		# TODO automate
-		$Env:PATH += ":$HOME/repos/llvm-project/build/bin/"
+		# clang and tools
+		# $Env:PATH += ":$HOME/repos/llvm-project/build/bin/" # for build from source
 
-		# clangd
-		$clangVersion = "21.1.8"
-		$Env:PATH += ":$HOME/clangd_$clangVersion/bin/"
+		$clangVersion = "21.1.0"
+		$Env:PATH += ":$HOME/llvm/LLVM-$clangVersion-Linux-X64/bin/"
+		# $Env:PATH += ":$HOME/clangd_$clangVersion/bin/"
+		# $Env:PATH += ":$HOME/clangd_$clangVersion/bin/"
 
 		# vulkan
 		# TODO automate 
