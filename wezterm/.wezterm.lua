@@ -58,4 +58,6 @@ config.color_schemes = {
 config.color_scheme = "gnome"
 config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
 
+config.debug_key_events = true
+
 return config
