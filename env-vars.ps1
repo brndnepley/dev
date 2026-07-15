@@ -14,11 +14,13 @@ switch ($true) {
 
 		# clang and tools
 		# $Env:PATH += ":$HOME/repos/llvm-project/build/bin/" # for build from source
-
 		$clangVersion = "21.1.0"
 		$Env:PATH += ":$HOME/llvm/LLVM-$clangVersion-Linux-X64/bin/"
 		# $Env:PATH += ":$HOME/clangd_$clangVersion/bin/"
 		# $Env:PATH += ":$HOME/clangd_$clangVersion/bin/"
+		
+		# odin
+		$Env:PATH += ":$HOME/odin/odin-linux-amd64-nightly+2026-07-13/"
 
 		# vulkan
 		# TODO automate 
