@@ -60,4 +60,18 @@ config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
 
 config.debug_key_events = true
 
+config.keys = {
+  {
+    key = "|",
+    mods = "SUPER",
+    action = wezterm.action.SplitVertical{ domain = "CurrentPaneDomain" },
+  },
+  {
+    key = "-",
+    mods = "SUPER",
+    action = wezterm.action.SplitHorizontal{ domain = "CurrentPaneDomain" },
+  },
+}
+
+
 return config
