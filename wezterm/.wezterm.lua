@@ -71,6 +71,16 @@ config.keys = {
     mods = "SUPER",
     action = wezterm.action.SplitHorizontal{ domain = "CurrentPaneDomain" },
   },
+  {
+	  key = "LeftArrow",
+	  mods = "ALT",
+	  action = wezterm.action.ActivatePaneDirection "Left",
+  },
+  {
+	  key = "RightArrow",
+	  mods = "ALT",
+	  action = wezterm.action.ActivatePaneDirection "Right",
+  },
 }
 
 
