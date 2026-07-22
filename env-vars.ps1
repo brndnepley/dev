@@ -20,7 +20,7 @@ switch ($true) {
 		# $Env:PATH += ":$HOME/clangd_$clangVersion/bin/"
 		
 		# odin
-		$Env:PATH += ":$HOME/odin/odin-linux-amd64-nightly+2026-07-13/"
+		$Env:PATH += ":$HOME/odin/odin-linux-amd64-nightly+2026-07-21/"
 
 		# vulkan
 		# TODO automate 
